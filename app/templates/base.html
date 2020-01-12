@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>{{title}}-Labyrinth</title>
+  </head>
+  <body>
+    <div>Labyrinth :
+    <a href="{{ url_for('home') }}">Home</a>
+    <a href="{{ url_for('login') }}">Login</a>
+    </div>
+    <hr>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+    {% block content %}{% endblock %}
+  </body>
+</html>
