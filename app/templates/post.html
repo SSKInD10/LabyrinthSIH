@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
+    {{ resources|safe }}
+    {{ script|safe }}
     <title>{{title}}-Labyrinth</title>
   </head>
   <body>
@@ -20,6 +21,7 @@
         </ul>
         {% endif %}
     {% endwith %}
-    {% block content %}{% endblock %}
+    <h1>Post Details</h1>
+    {{ div|safe }}
   </body>
 </html>
