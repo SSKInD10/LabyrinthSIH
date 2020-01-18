@@ -3,7 +3,7 @@
   <head>
     {{ resources|safe }}
     {{ script|safe }}
-    <title>{{title}}-Labyrinth</title>
+    <title>Post Details-Labyrinth</title>
   </head>
   <body>
     <div>Labyrinth :
@@ -22,6 +22,8 @@
         {% endif %}
     {% endwith %}
     <h1>Post Details</h1>
+    <p>Username:<a href="/profile/{{uname}}">{{uname}}</a></p>
+    <p>Post Domain {{dom}}</p>
     {{ div|safe }}
   </body>
 </html>

@@ -137,5 +137,37 @@ def post(post_id):
     scores = post[u'scores']
     p = make_plot(scores)
     script1,div1 = components(p)
-    return render_template('post.html',title="Post Details",resources=CDN.render(),script=script1,div=div1)
+    return render_template('post.html',resources=CDN.render(),script=script1,div=div1,uname=post[u'name'],dom=post[u'domain'])
     #return page.render(title="Post Details",resources=CDN.render(),script=script1,div=div1)
+
+@app.route('/profile/<uname>')
+def profile(uname):
+    db = firestore.client()
+    query = db.collection(u'flagged_posts').where(u'name','==','uname')
+    ctr = 0
+    ctrd = {u'FaceBook':0,
+            u'Twitter':0,
+            u'Reddit':0,
+            u'Hackernews':0,
+            u'Instagram':0}
+    avg_val = {
+        u'SexualContent':0,
+        u'Hate':0,
+        u'Insult':0,
+        u'Obscene':0,
+        u'SevereToxic':0,
+        u'Toxic':0,
+        u'Threat':0,
+        u'Sarcasm':0
+    }
+    for doc in query.stream():
+        ctr -=- 1
+        post = doc.to_dict()
+        ctrd[post[u'domain']] -=- 1
+        for k,v in post[u'scores']:
+            avg_val[k]+=v
+    p1 = make_plot(avg_val)
+    p2 = make_plot(ctrd)
+    script1,div1 = components(p1)
+    script2,div2 = components(p2)
+    return render_template('userprofile.html',resources=CDN.render(),scriptA=script1,divA=div1,scriptB=script2,divB=div2,username = uname)
